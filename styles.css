@@ -1,0 +1,182 @@
+#masterDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f5f6;
+}
+
+#headerDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1345px;
+    margin-bottom: 20px;
+
+ 
+}
+
+#dateDiv{
+
+    color: black;
+    font-weight: 900;
+    font-size: 25px;
+    
+}
+
+#buttonDiv{
+  
+    display: block;
+    align-content: end;
+
+}
+
+#month{
+    margin:0;
+    font-weight: 100;
+
+}
+#year{
+    margin:0;
+    font-weight: 100;
+}
+
+#previousButton{
+  
+    width: 100px;
+    font-size: 20px;
+    background-color: #efedeb;
+    border-radius: 8px;
+    border:  solid grey;
+    cursor: pointer;
+    
+}
+
+#nextButton{
+    width: 100px;
+    font-size: 20px;
+    background-color: #efedeb;
+    border-radius: 8px;
+    border: solid grey;
+    cursor: pointer;
+    
+}
+
+#previousButton:hover{
+    background-color: #b4b0ac;
+}
+
+#nextButton:hover{
+    background-color: #b4b0ac;
+}
+
+#daysDiv{
+    
+   
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: black;
+    font-weight: 900;
+    
+}
+
+.weekdays{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 35px;
+   
+    min-width: 175px;
+   
+   
+}
+
+
+.realDay{
+    background-color: #efedeb;
+    border-radius: 10px;
+    border: solid grey;
+    cursor: pointer;
+    padding-left: 5px;
+    padding-top: 5px;
+    font-size: 20px;
+   
+
+}
+
+.realDay:hover{
+    background-color: #b4b0ac;
+}
+
+#calendar{
+
+    display: grid;
+    grid-template-columns: repeat(7, 175px); 
+    grid-auto-rows: 175px; 
+    column-gap: 20px;
+    row-gap: 20px;
+  
+
+}
+
+.fakeDay{
+    background-color: #84807c;
+    border-radius: 10px;
+    border: solid grey;
+
+    
+}
+
+body{
+    background-color: #f3f5f6;
+}
+
+#logo{
+    width: fit-content;
+}
+
+.negativeDay{
+    background-color: #ea594b;
+    border-radius: 10px;
+    border: solid rgb(195, 40, 40);
+    cursor: pointer;
+    padding-left: 5px;
+    padding-top: 5px;
+    font-size: 20px;
+    
+}
+
+.negativeDay:hover{
+    background-color: #c71e0f;
+}
+
+.today{
+    background-color: #ea594b;
+    border-radius: 10px;
+    border: solid rgb(195, 40, 40);
+    cursor: pointer;
+    padding-left: 5px;
+    padding-top: 5px;
+    font-size: 20px;
+    
+}
+
+.today:hover{
+    background-color: #c71e0f;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
