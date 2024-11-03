@@ -5,6 +5,9 @@ const prevButton = document.getElementById("previousButton")
 const monthH1 = document.getElementById("month")
 const yearH1 = document.getElementById("year")
 const calendar = document.getElementById("calendar")
+const backDrop = document.getElementById("backDrop")
+const saveButton = document.getElementById("saveButton")
+const cancelButton = document.getElementById("cancelButton")
 
 
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -12,6 +15,8 @@ const months = ["January","February", "March","April","May","June","July","Augus
 
 nextButton.addEventListener("click", () => changeMonth(1));
 prevButton.addEventListener("click", () => changeMonth(-1));
+saveButton.addEventListener("click", () => savePressed());
+cancelButton.addEventListener("click", () => cancelPressed());
 
 
 
@@ -23,6 +28,7 @@ function load(){
     const curretDay = todayDate.getDate();
     const currentMonth = todayDate.getMonth();
     const currentYear = todayDate.getFullYear();
+    backDrop.style.display='none';
 
  
 
@@ -45,11 +51,13 @@ function load(){
             newDiv.className = 'today';
             index++;
             newDiv.textContent = index
+            newDiv.addEventListener("click", () => dayPressed());
         }
         else{
             newDiv.className = 'realDay';
             index++;
             newDiv.textContent = index
+            newDiv.addEventListener("click", () => dayPressed());
 
         
         }
@@ -99,6 +107,19 @@ function setMonthYear(monthIndex){
    
     monthH1.textContent = months[monthValue]
 
+}
+
+function savePressed(){
+    backDrop.style.display='none';
+    
+}
+
+function cancelPressed(){
+    backDrop.style.display='none';
+}
+
+function dayPressed(){
+    backDrop.style.display='flex';
 }
 
 setMonthYear()

@@ -39,10 +39,60 @@
 
         </div>
 
-        <div id="calendar">
+        <div id="calendar"></div>
 
+        <div id="backDrop">
             
-        
+            <div id="popupDiv">
+
+                <div id="popupTitleDiv">
+                    <h1 id="popupTitle">Monday November 11, 2024</h1>
+                </div>
+
+                <div class="lineBreakDiv"> </div>
+
+                <div id="financeInfo">
+
+                    <p>+ $200</p>
+                    <p>- $250</p>
+                    <p>+ $200</p>
+                    <p>+ -$5200</p>
+
+                </div>
+
+                <div class="lineBreakDiv"> </div>
+
+                <div id="inputsDiv">
+
+                    <form id="form">
+                        <input type="radio" id="expenseButton" name="transactionType" value="expense" required>
+                        <label for="expenseButton">Expense</label><br>
+                        <input type="radio" id="incomeButton" name="transactionType" value="income" required>
+                        <label for="incomeButton">Income</label><br>
+                    
+                        <input type="number" id="amountInput" name="amountInput" min="0" step="0.01" required placeholder="Amount"><br>
+                        
+                        <button id="submitButton" type="submit">Add</button>
+                    </form>
+
+
+                </div>
+                
+                <div class="lineBreakDiv"> </div>
+                <div id="totalDiv">
+                    <h1>Total + $50204</h1>
+                </div>
+
+                <div class="lineBreakDiv"> </div>
+               
+               
+
+                <div id="popUpButtonsDiv">
+                    <button id="saveButton">Save</button>
+                    <button id="cancelButton">Cancel</button>
+                </div>
+
+            </div>
         </div>
 
         
