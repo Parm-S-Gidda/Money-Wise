@@ -5,7 +5,10 @@ let monthCurrent;
 let dayCurrent;
 let yearCurrent;
 let fullDate;
+let epochDate;
+let currentExpenseVal;
 const logMap = new Map();
+const expenseMap = new Map();
 const nextButton = document.getElementById("nextButton")
 const prevButton = document.getElementById("previousButton")
 const monthH1 = document.getElementById("month")
@@ -26,6 +29,8 @@ const form = document.getElementById("form");
 const historyDiv = document.getElementById("financeInfo");
 
 const popupTitleH1 = document.getElementById("popupTitle");
+const total = document.getElementById("total");
+const totalDiv = document.getElementById("totalDiv");
 
 
 
@@ -154,6 +159,7 @@ function dayPressed(curretDay, currentMonth, currentYear){
    popupTitleH1.textContent = weekDayTitle + " " + currentMonth + " " + curretDay + ", " + currentYear
 
    historyDiv.innerHTML='';
+   totalDiv.innerHTML='';
 
    loadFinanceHistory(currentMonth + " " + curretDay + ", " + currentYear)
 
@@ -206,7 +212,61 @@ function addExpense(event){
             log.textContent = "- $" +  amountValue + " - " + descriptionValue
         }
 
-        historyDiv.appendChild(log)
+        historyDiv.appendChild(log);
+
+        const allExpenseLogs = historyDiv.getElementsByTagName("p");
+
+        let sign;
+        let runningTotal = 0;
+
+        for( i = 0; i < allExpenseLogs.length; i++){
+
+            currentEntry = allExpenseLogs[i].textContent;
+            
+            if(currentEntry[0] === '-'){
+                sign = "negative";
+            }
+    
+            currentEntry = currentEntry.slice(3)
+            
+            numericArray = currentEntry.split(' ');
+    
+             console.log("bbb:"+numericArray[0])
+    
+             currentEntry = parseInt( numericArray[0], 10)
+    
+             if(sign === "negative"){
+                console.log("negative: " + numericArray[0])
+                currentEntry *= -1;
+             }
+    
+            
+            runningTotal += currentEntry;
+            console.log("running total: " + runningTotal)
+    
+            sign = " ";
+
+
+        }
+
+        totalDiv.innerHTML = '';
+        const newTotal = document.createElement('h1');
+        const lineDiv = document.createElement('div');
+        lineDiv.className = "lineBreakDiv"
+        newTotal.id = "total"
+
+        if(runningTotal >= 0){
+            newTotal.textContent = "Total: + $" + runningTotal;
+        }
+        else{
+            newTotal.textContent = "Total: - $" + runningTotal.toString().slice(1);
+        }
+
+        totalDiv.appendChild(lineDiv);
+        totalDiv.appendChild(newTotal);
+
+
+
       
     }
 
@@ -217,25 +277,50 @@ function addExpense(event){
 
 function loadFinanceHistory(dateKey){
 
-    console.log("lkj: " + new Date(dateKey).valueOf() )
+    epochDate = new Date(dateKey).valueOf();
 
-    fullDate = dateKey
+    fullDate = dateKey;
 
     if(logMap.has(dateKey)){
 
      
 
         logs = logMap.get(dateKey)
+        allExpenseLogs = expenseMap.get(epochDate)
+
+        currentExpenseVal = 0;
+        
 
         for( i = 0; i < logs.length; i++){
 
             
             const log = document.createElement('p');
+            
 
             log.textContent = logs[i];
-            historyDiv.appendChild(log)
+
+            console.log("all:" + allExpenseLogs[i])
+           currentExpenseVal += allExpenseLogs[i];
+           
+            historyDiv.appendChild(log);
 
         }
+
+        const newTotal = document.createElement('h1');
+        const lineDiv = document.createElement('div');
+        lineDiv.className = "lineBreakDiv"
+        newTotal.id = "total"
+
+        if(currentExpenseVal >= 0){
+            newTotal.textContent = "+ $" + currentExpenseVal;
+        }
+        else{
+            newTotal.textContent = "- $" + currentExpenseVal.toString().slice(1);
+        }
+
+        totalDiv.appendChild(lineDiv);
+        totalDiv.appendChild(newTotal);
+
     }
 
 }
@@ -245,40 +330,46 @@ function savePressed(){
 
     const allExpenseLogs = historyDiv.getElementsByTagName("p");
 
-    if(logMap.has(fullDate)){
+    let currentEntry;
+    let sign;
 
-        console.log("aaa");
+    logMap.set(fullDate, []);
+    expenseMap.set(epochDate, [])
 
-        logMap.set(fullDate, []);
+    for( i = 0; i < allExpenseLogs.length; i++){
 
-        for( i = 0; i < allExpenseLogs.length; i++){
+        currentEntry = allExpenseLogs[i].textContent;
+        
+        (logMap.get(fullDate)).push(currentEntry);
 
-           console.log("bbb: " + allExpenseLogs[i].textContent);
-            (logMap.get(fullDate)).push(allExpenseLogs[i].textContent);
-          
-
+        if(currentEntry[0] === '-'){
+            sign = "negative";
         }
-    }
-    else{
 
-        console.log("bbb");
+        currentEntry = currentEntry.slice(3)
+        
+        numericArray = currentEntry.split(' ');
 
-        logMap.set(fullDate, []);
+         console.log("bbb:"+numericArray[0])
+
+         currentEntry = parseInt( numericArray[0], 10)
+
+         if(sign === "negative"){
+            console.log("negative: " + numericArray[0])
+            currentEntry *= -1;
+         }
+
+        
+        expenseMap.get(epochDate).push(currentEntry);
+
+        sign = " ";
+
+        
         
 
-        for( i = 0; i < allExpenseLogs.length; i++){
-
-          
-
-           console.log("bbb 2: " + allExpenseLogs[i].textContent);
-            (logMap.get(fullDate)).push(allExpenseLogs[i].textContent);
-          
-
-        }
-
-       
-
     }
+    
+    
     
 
 
