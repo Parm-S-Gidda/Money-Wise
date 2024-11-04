@@ -51,41 +51,57 @@
 
                 <div class="lineBreakDiv"> </div>
 
-                <div id="financeInfo">
-
-                    <p>+ $200</p>
-                    <p>- $250</p>
-                    <p>+ $200</p>
-                    <p>+ -$5200</p>
-
+                <div id="financeHistoryDiv">
+                    <h1>Add Expense/Income</h1>
                 </div>
-
-                <div class="lineBreakDiv"> </div>
 
                 <div id="inputsDiv">
-
                     <form id="form">
-                        <input type="radio" id="expenseButton" name="transactionType" value="expense" required>
-                        <label for="expenseButton">Expense</label><br>
-                        <input type="radio" id="incomeButton" name="transactionType" value="income" required>
-                        <label for="incomeButton">Income</label><br>
                     
-                        <input type="number" id="amountInput" name="amountInput" min="0" step="0.01" required placeholder="Amount"><br>
+                        <div id="writtenDiv">
+                            <div id="amountInputDiv">
+                                <label for="amountInput" id="amountLabel">Amount</label><br>
+                                <input type="number" id="amountInput" name="amountInput" min="0" step="0.01" required placeholder="amount"><br>
+                            </div>
                         
-                        <button id="submitButton" type="submit">Add</button>
+                            
+                            <div id="descriptionInputDiv">
+                                <label for="descriptionInput" id="descriptionLabel">Description </label><br>
+                                <input type="text" id="descriptionInput" name="descriptionInput" required placeholder="e.g. &quot;pizza&quot;"><br>
+                            </div>
+                    </div>
+
+                    <div id="expenseIncomeButtonDiv">
+
+                            <button id="incomeButton" class="inactive" type="button">Income</button>
+                            <button id="expenseButton" class="active" type="button">Expense</button>
+                            <button id="addButton" type="submit">Add</button>
+
+                        </div>
+                        
                     </form>
-
-
+                </div>  
+                
+                <div id="financeHistoryDiv">
+                    <h1>Finance Hisotry</h1>
                 </div>
                 
-                <div class="lineBreakDiv"> </div>
+                <div id="financeInfo">
+         
+                </div>
                 <div id="totalDiv">
-                    <h1>Total + $50204</h1>
+                    <div class="lineBreakDiv"> </div>
+                    <h1 id="total">+ $50204</h1>
                 </div>
 
-                <div class="lineBreakDiv"> </div>
-               
-               
+                
+                <div id="inputsDiv">
+
+ 
+
+                </div>
+
+                
 
                 <div id="popUpButtonsDiv">
                     <button id="saveButton">Save</button>

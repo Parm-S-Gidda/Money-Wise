@@ -84,8 +84,7 @@
 .weekdays{
     margin-left: 10px;
     margin-right: 10px;
-    font-size: 35px;
-   
+    font-size: 35px;   
     min-width: 175px;
    
    
@@ -97,11 +96,28 @@
     border-radius: 10px;
     border: solid grey;
     cursor: pointer;
-    padding-left: 5px;
-    padding-top: 5px;
+    padding-left: 20px;
+    padding-top: 15px;
     font-size: 20px;
+
    
 
+}
+
+.todayDiv{
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    position: relative;
+    top: -10px;
+    left: -15px;
+
+
+
+    background-color: #84807c);
 }
 
 .realDay:hover{
@@ -193,42 +209,72 @@ body{
     display: flex;
     justify-content: center;
     font-size: 25px;
+    color: rgb(69, 65, 65);
+    font-weight: 900;
 }
 
 .lineBreakDiv{
 
-    background-color: rgb(0, 0, 0);
+    background-color: darkgray;
     width: 98%;
     height: 1px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 
 }
 
 #financeInfo{
-    background-color: rgb(225, 224, 224);
-    border-radius: 10px;
+    background-color: #e6e3e0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     width: 97%;
     height: 99%;
-    margin-bottom: 20px;
-    font-size: 50px;
+    border-bottom: 0px;
+    font-size: 25px;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: auto;
+    font-weight: 550;
     padding-left: 25px;
+    
+    color:rgb(69, 65, 65)
+
      
+}
+
+#inputsDiv{
+    display: flex;
+    width: 97%;
+    justify-content: center;
+    background-color: #e6e3e0;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 #totalDiv{
 
-    background-color: rgb(225, 224, 224);
+    
     display: flex;
-    justify-content: center;
-    width: fit-content;
-    box-sizing: border-box;
-    padding: 0px 25px 0px 25px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    font-size: 20px;
+    flex-direction: column;
+    align-items: center;
+    font-size: 15px;
+    position: relative;
+    background-color: #e6e3e0;
+    width: 97%;
+    height: 100px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+ 
 
+
+}
+
+#total{
+    align-self: flex-start;
+    padding-left: 25px;
+    color: rgb(69, 65, 65)
+ 
 }
 
 #form{
@@ -238,93 +284,200 @@ body{
     font-weight: 900;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     
 }
 
-#amountInput{
-    margin-left: 10px;
-    height: 38px;
+#financeHistoryDiv{
+    margin-bottom: 0px;
+    color: rgb(69, 65, 65);
 }
 
-#inputsDiv{
+
+
+
+
+
+/* --------------------------------*/
+
+#writtenDiv{
     display: flex;
-    justify-items:center;
-
-   
+    align-items: center;
+    gap: 50px;
+  
+    
 }
 
-#submitButton{
-    
-    margin-left: 5px;
-    border-radius: 8px;
-    width: fit-content;
-    padding-left: 15px;
-    padding-right: 15px;
-    font-size: 25px;
-    font-weight: 600;
-    height: fit-content;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: rgb(225, 224, 224) ;
-    cursor: pointer;
+#amountLabel{
+    font-size: 22px;
+    font-weight: 550;
+    margin-left: 3px;
+    color: rgb(69, 65, 65);
+}
+
+#descriptionLabel{
+    font-size: 22px;
+    font-weight: 550;
+    margin-left: 3px;
+    color: rgb(69, 65, 65);
+
 }
 
 #amountInput{
 
-    border-radius: 8px;
+    border-radius: 6px;
+    border: 1px solid lightgrey;
     font-size: 25px;
-    font-weight: 9;
-    width: 200px;
-    margin-left: 20px;
+    padding-left: 10px;
+    width:300px;
+    height: 50px;
+    color: rgb(69, 65, 65);
+   
     cursor: pointer;
+}
+
+
+
+#descriptionInput{
+    border-radius: 6px;
+    border: 1px solid lightgrey;
+    font-size: 25px;
+    padding-left: 10px;
+    width:300px;
+    height: 50px;
+    color: rgb(69, 65, 65);
+  
+   
+
+    cursor: pointer;
+}
+
+/* --------------------------------*/
+
+#expenseIncomeButtonDiv{
+    
+    display: flex;
+    margin-top: 25px;
+    position: relative;
+    align-items: center;
+
+}
+
+#incomeButton{
+    
+    height: 45px;
+    width: 150px;
+    font-size: 25px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+   
+    cursor: pointer;    
 }
 
 #expenseButton{
 
-    margin-right: 10px;
+    height: 45px;
+    width: 150px;
+    font-size: 25px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
     cursor: pointer;
 }
 
-#incomeButton{
 
-    margin-left: 10px;
-    margin-right: 10px;
-    cursor: pointer;
+#incomeButton:hover, #incomeButton.active {
+    background-color: rgb(69, 65, 65);
+    color: white;
+}
+
+#expenseButton:hover, #expenseButton.active {
+    background-color: rgb(69, 65, 65);
+    color: white;
+}
+
+.active {
+    background-color: rgb(69, 65, 65);
+    color: white;
+    border: 1px solid rgb(69, 65, 65);
+}
+
+
+.inactive {
+    background-color: white;
+    color: rgb(69, 65, 65);
+    border: 1px solid rgb(69, 65, 65);
+}
+
+#addButton{
     
+    background-color: white ;
+    border: 1px solid rgb(69, 65, 65);
+    border-radius: 15pc;
+    width:100px;
+    height: 50px;
+    color: rgb(69, 65, 65);
+    cursor: pointer;
+    position: absolute;
+    right: -125px;
+    font-size: 25px;
+}
+
+#addButton:hover{
+
+    background-color: rgb(69, 65, 65) ;
+    border: 1px solid rgb(69, 65, 65);
+    color: white;
+}
+
+/* --------------------------------*/
+
+#popUpButtonsDiv{
+    margin-bottom: 20px;
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+  
 }
 
 #saveButton{
 
     border-radius: 8px;
-    font-size: 40px;
+    font-size: 25px;
     width:200px;
-    background-color: rgb(225, 224, 224);
+    border: 1px solid rgb(69, 65, 65);
+    background-color: rgb(69, 65, 65);
+    color: white;
+    height: 55px;
     cursor: pointer;
 }
 
 #cancelButton{
     border-radius: 8px;
-    font-size: 40px;
+    font-size: 25px;
     width:200px;
-    background-color: rgb(225, 224, 224);
+    border: 1px solid rgb(69, 65, 65);
+    background-color: rgb(69, 65, 65);
+    color: white;
+    height: 55px;
     cursor: pointer;
 }
 
-#popUpButtonsDiv{
-    margin-bottom: 10px;
-}
+
 
 #saveButton:hover{
-    background-color:rgb(169, 168, 168) ;
+    background-color: white;
+    color: rgb(69, 65, 65);
 }
 
 #cancelButton:hover{
-    background-color:rgb(169, 168, 168) ;
+    background-color: white;
+    color: rgb(69, 65, 65);
 }
 
-#submitButton:hover{
-    background-color:rgb(169, 168, 168) ;
-}
+/* --------------------------------*/
+
+
+
 
 
 
