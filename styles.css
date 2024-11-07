@@ -96,9 +96,12 @@
     border-radius: 10px;
     border: solid grey;
     cursor: pointer;
-    padding-left: 20px;
-    padding-top: 15px;
-    font-size: 20px;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 
    
 
@@ -112,17 +115,72 @@
     align-items: center;
     border-radius: 100%;
     position: relative;
-    top: -10px;
-    left: -15px;
+    margin-left: -110px;
+    margin-top: 10px;
+    
+    background-color: #84807c;
+}
 
+.todayDivNegative{
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    position: relative;
+    margin-left: -110px;
+    margin-top: 10px;
 
+    background-color: #681515;
+}
 
-    background-color: #84807c);
+.dateDivTemp{
+    margin-left: -100px;
+    margin-top: 20px;
+    font-size: 20px;
 }
 
 .realDay:hover{
     background-color: #b4b0ac;
 }
+
+.totalDiv{
+    
+    margin-top: 90px;
+    font-size: 25px;
+    width: 93%;
+    display: flex;
+    justify-content: center;
+
+   
+    
+    
+}
+
+.totalDivToday{
+    margin-top: 80px;
+    font-size: 25px;
+    width: 93%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    bottom: 2px;
+ 
+}
+
+.addedEventNegative{
+    border-radius: 10px;
+    background-color: rgb(210, 183, 183);
+}
+
+.addedEvent{
+
+    border-radius: 10px;
+    background-color: rgb(210, 183, 183);
+}
+
+
 
 #calendar{
 
@@ -135,10 +193,13 @@
 
 }
 
+
+
 .fakeDay{
     background-color: #84807c;
     border-radius: 10px;
     border: solid grey;
+  
 
     
 }
@@ -156,9 +217,10 @@ body{
     border-radius: 10px;
     border: solid rgb(195, 40, 40);
     cursor: pointer;
-    padding-left: 5px;
-    padding-top: 5px;
-    font-size: 20px;
+   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
 }
 
@@ -264,6 +326,9 @@ body{
     height: 100px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+  
+  
+   
     
  
 

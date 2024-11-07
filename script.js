@@ -79,8 +79,8 @@ function load(){
     
     let currentDate = oldestDate;
 
-    console.log("newest: " + newestDate + " - " + new Date(newestDate).toLocaleDateString());
-    console.log("oldest: " + oldestDate + " - " + new Date(oldestDate).toLocaleDateString());
+    //console.log("newest: " + newestDate + " - " + new Date(newestDate).toLocaleDateString());
+    //console.log("oldest: " + oldestDate + " - " + new Date(oldestDate).toLocaleDateString());
 
 
     alphaTotal = 0;
@@ -97,13 +97,13 @@ function load(){
 
             runningTotals.set(currentDate, alphaTotal)
 
-           console.log(i + " hit: " + alphaTotal)
+     
           
         }
         else{
 
             runningTotals.set(currentDate, alphaTotal)
-            console.log(i + " norm: " + alphaTotal)
+    
 
         }
 
@@ -113,24 +113,30 @@ function load(){
 
     let index = 0;
     let currentEpoch = 0;
+    let isNegative = 0;
 
     for (let i = 0; i < firstDay + daysInMonth; i++) {
 
         const newDiv = document.createElement('div');
-        const totalH1 = document.createElement('h1');
+
+        const totalDiv = document.createElement('div');
+        const dateDivTemp = document.createElement('div');
+
+       
+        dateDivTemp.className = 'dateDivTemp';
 
         if(i < firstDay){
             
             newDiv.className = 'fakeDay';
         }
         else if(curretDay === (index + 1) && currentMonth === monthValue && currentYear === yearValue){
-            newDiv.className = 'realDay';
+         
 
             const todayDiv = document.createElement('div');
-            todayDiv.className = 'todayDiv';
+          
             index++;
             todayDiv.textContent = index
-
+            totalDiv.className = 'totalDivToday';
             todayDiv.style.color="white";
             newDiv.addEventListener("click", () => dayPressed(todayDiv.innerHTML, monthH1.innerHTML, yearH1.innerHTML));
 
@@ -138,67 +144,110 @@ function load(){
                
              
                 if(runningTotals.get(newestDate) >= 0){
-                    totalH1.textContent= "+$" + runningTotals.get(newestDate)
+                    todayDiv.className = 'todayDiv';
+                    newDiv.className = 'realDay';
+                    totalDiv.textContent= "+$" + runningTotals.get(newestDate)
                 }
                 else{
-                    totalH1.textContent= "-$" + runningTotals.get(newestDate)
+                    totalDiv.textContent= "-$" + (runningTotals.get(newestDate) * -1)
                     newDiv.className = "negativeDay";
+                    todayDiv.className = 'todayDivNegative';
+                    isNegative = 1;
                 }
                
             }
             else if(getEpoch(currentMonth, index, currentYear) < oldestDate){
-                totalH1.textContent= "+$0"
+                todayDiv.className = 'todayDiv';
+                newDiv.className = 'realDay';
+                totalDiv.textContent= "+$0"
             }
             else{
 
                 if(runningTotals.get(getEpoch(currentMonth, index, currentYear)) >= 0){
-                    totalH1.textContent= "+$" + runningTotals.get(getEpoch(currentMonth, index, currentYear))
+                    todayDiv.className = 'todayDiv';
+                    newDiv.className = 'realDay';
+                    totalDiv.textContent= "+$" + runningTotals.get(getEpoch(currentMonth, index, currentYear))
                 }
                 else{
-                    totalH1.textContent= "-$" + runningTotals.get(getEpoch(currentMonth, index, currentYear))
+                    totalDiv.textContent= "-$" + (runningTotals.get(getEpoch(currentMonth, index, currentYear)) *-1)
                     newDiv.className = "negativeDay";
+                    todayDiv.className = 'todayDivNegative'
+                    isNegative = 1;
                 }
             }
         
             newDiv.appendChild(todayDiv)
-           // newDiv.appendChild(totalH1)
+
+           
+
+            if(totalsMap.has(getEpoch(currentMonth, index, currentYear))){
+
+             
+
+                if(isNegative === 1){
+                    totalDiv.className = "addedEventNegative totalDivToday ";
+                }
+                else{
+                    totalDiv.className = "addedEvent totalDivToday";
+                }
+            }
+        
+            newDiv.appendChild(totalDiv)
+          
         }
         else{
             newDiv.className = 'realDay';
             index++;
-            newDiv.textContent = index
-            newDiv.addEventListener("click", () => dayPressed(newDiv.innerHTML, monthH1.innerHTML, yearH1.innerHTML));
-
-            let epochnow = getEpoch(months.indexOf(monthH1.innerHTML), newDiv.innerHTML, yearH1.innerHTML)
+            totalDiv.className = 'totalDiv';
+            dateDivTemp.textContent = index
+            newDiv.addEventListener("click", () => dayPressed(dateDivTemp.innerHTML, monthH1.innerHTML, yearH1.innerHTML));
+            
+            let epochnow = getEpoch(months.indexOf(monthH1.innerHTML), dateDivTemp.innerHTML, yearH1.innerHTML)
          
             
             if(epochnow >= newestDate){
                
-                console.log("Greater: " + new Date(epochnow).toLocaleDateString())
+            
              
                 if(runningTotals.get(newestDate) >= 0){
-                    totalH1.textContent= "+$" + runningTotals.get(newestDate)
+                    totalDiv.textContent= "+$" + runningTotals.get(newestDate)
                 }
                 else{
-                    totalH1.textContent= "-$" + runningTotals.get(newestDate)
+                    totalDiv.textContent= "-$" + (runningTotals.get(newestDate) * -1)
                     newDiv.className = "negativeDay";
+                    isNegative = 1;
                 }
                
             }
             else if(epochnow < oldestDate){
-                totalH1.textContent= "+$0"
+                totalDiv.textContent= "+$0"
             }
             else{
 
                 if(runningTotals.get(epochnow) >= 0){
-                    totalH1.textContent= "+$" + runningTotals.get(epochnow)
+                    totalDiv.textContent= "+$" + runningTotals.get(epochnow)
                 }
                 else{
-                    totalH1.textContent= "-$" + runningTotals.get(epochnow)
+                    totalDiv.textContent= "-$" + (runningTotals.get(epochnow) * -1)
                     newDiv.className = "negativeDay";
+                    isNegative = 1;
                 }
             }
-//newDiv.appendChild(totalH1)
+            newDiv.appendChild(dateDivTemp);
+
+            if(totalsMap.has(epochnow)){
+
+                if(isNegative === 1){
+                    totalDiv.className = "addedEventNegative totalDiv ";
+                }
+                else{
+                    totalDiv.className = "addedEvent totalDiv";
+                }
+            
+            }
+      
+            newDiv.appendChild(totalDiv);
+          
         
         }
 
@@ -258,7 +307,7 @@ function cancelPressed(){
 
 function dayPressed(curretDay, currentMonth, currentYear){
 
-    console.log('what did you do ' + curretDay)
+    
 
     backDrop.style.display='flex';
     let weekDayTitle = weekdays[new Date(currentMonth + " " + curretDay + "," + yearValue).getDay()];
@@ -356,7 +405,7 @@ function loadFinanceHistory(currentMonth,  curretDay, currentYear){
     epochDate = new Date(Date.UTC(currentYear, months.indexOf(currentMonth), curretDay, 12)).getTime();
 
 
-    console.log("what is going on brother " + curretDay)
+    
 
     dateKey = currentMonth + " " + curretDay + ", " + currentYear
 
@@ -382,7 +431,7 @@ function loadFinanceHistory(currentMonth,  curretDay, currentYear){
 
             log.textContent = logs[i];
 
-            console.log("all:" + allExpenseLogs[i])
+          
            currentExpenseVal += allExpenseLogs[i];
            
             historyDiv.appendChild(log);
@@ -451,20 +500,21 @@ function savePressed(){
 
     newTotal = calculateTotal();
 
-    console.log("logged: " + epochDate);
+
+    console.log("Date: " + (new Date(epochDate).toDateString()));
 
     totalsMap.set(epochDate, newTotal);
 
     if(epochDate < oldestDate || first == 0){
 
-        console.log("oldest date set: " + epochDate)
+       
         oldestDate = epochDate;
         oldestVal = newTotal;
     }
 
     if(epochDate > newestDate  || first == 0){
 
-        console.log("newest Date set: " + epochDate)
+   
         newestDate = epochDate;
         newestVal = newTotal;
     }
