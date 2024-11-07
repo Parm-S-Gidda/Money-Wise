@@ -12,6 +12,7 @@ let newestDate = new Date(Date.UTC(yearValue, monthValue, 1, 12)).getTime();
 let oldestVal = 0;
 let newestVal = 0;
 let alphaTotal = 0;
+let first = 0;
 const logMap = new Map();
 const expenseMap = new Map();
 const totalsMap = new Map();
@@ -78,8 +79,9 @@ function load(){
     
     let currentDate = oldestDate;
 
-    console.log("newest: " + newestDate);
-    console.log("oldest: " + oldestDate);
+    console.log("newest: " + newestDate + " - " + new Date(newestDate).toLocaleDateString());
+    console.log("oldest: " + oldestDate + " - " + new Date(oldestDate).toLocaleDateString());
+
 
     alphaTotal = 0;
     runningTotals.clear();
@@ -105,10 +107,7 @@ function load(){
 
         }
 
-     
-
-      
-
+    
         currentDate += 86400000
     }
 
@@ -147,7 +146,7 @@ function load(){
                 }
                
             }
-            else if(getEpoch(currentMonth, index, currentYear) < newestDate){
+            else if(getEpoch(currentMonth, index, currentYear) < oldestDate){
                 totalH1.textContent= "+$0"
             }
             else{
@@ -170,12 +169,12 @@ function load(){
             newDiv.textContent = index
             newDiv.addEventListener("click", () => dayPressed(newDiv.innerHTML, monthH1.innerHTML, yearH1.innerHTML));
 
-            console.log("skfja;: " + newDiv.innerHTML)
-            
             let epochnow = getEpoch(months.indexOf(monthH1.innerHTML), newDiv.innerHTML, yearH1.innerHTML)
          
+            
             if(epochnow >= newestDate){
                
+                console.log("Greater: " + new Date(epochnow).toLocaleDateString())
              
                 if(runningTotals.get(newestDate) >= 0){
                     totalH1.textContent= "+$" + runningTotals.get(newestDate)
@@ -186,7 +185,7 @@ function load(){
                 }
                
             }
-            else if(epochnow < newestDate){
+            else if(epochnow < oldestDate){
                 totalH1.textContent= "+$0"
             }
             else{
@@ -456,19 +455,21 @@ function savePressed(){
 
     totalsMap.set(epochDate, newTotal);
 
-    if(epochDate < oldestDate){
+    if(epochDate < oldestDate || first == 0){
 
         console.log("oldest date set: " + epochDate)
         oldestDate = epochDate;
         oldestVal = newTotal;
     }
 
-    if(epochDate > newestDate){
+    if(epochDate > newestDate  || first == 0){
 
         console.log("newest Date set: " + epochDate)
         newestDate = epochDate;
         newestVal = newTotal;
     }
+
+    first = 1;
     
     
     
