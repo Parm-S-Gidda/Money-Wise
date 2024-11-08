@@ -358,9 +358,9 @@ function addExpense(event){
  
     console.log("start: " + bal)
 
-    form.reportValidity();
+    let runningTotal;
 
-    if(amountValue != '' && descriptionValue != ''){
+    if(form.reportValidity()){
 
       
 
@@ -379,7 +379,18 @@ function addExpense(event){
 
         historyDiv.appendChild(log);
 
-        runningTotal = calculateTotal() + bal;
+        if( totalsMap.has(epochDate)){
+            runningTotal = calculateTotal();
+            console.log("second time")
+        }
+        else{
+            runningTotal = calculateTotal() + bal;
+        }
+
+    
+
+        console.log("as;lkdfj: " + calculateTotal())
+        console.log("as;asdfsfasfsdf: " + bal)
 
         totalDiv.innerHTML = '';
         const newTotal = document.createElement('h1');
@@ -427,6 +438,7 @@ function loadFinanceHistory(currentMonth,  curretDay, currentYear, currentBalanc
 
 
     bal = startingBlance;
+    console.log("big baller brand")
 
     const newTotal = document.createElement('h1');
     const balanceH1 = document.createElement('h3');
