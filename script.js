@@ -13,6 +13,7 @@ let oldestVal = 0;
 let newestVal = 0;
 let alphaTotal = 0;
 let first = 0;
+let bal = 0;
 const logMap = new Map();
 const expenseMap = new Map();
 const totalsMap = new Map();
@@ -112,10 +113,11 @@ function load(){
     }
 
     let index = 0;
-    let currentEpoch = 0;
+ 
     let isNegative = 0;
 
     for (let i = 0; i < firstDay + daysInMonth; i++) {
+        isNegative = 0;
 
         const newDiv = document.createElement('div');
 
@@ -138,7 +140,7 @@ function load(){
             todayDiv.textContent = index
             totalDiv.className = 'totalDivToday';
             todayDiv.style.color="white";
-            newDiv.addEventListener("click", () => dayPressed(todayDiv.innerHTML, monthH1.innerHTML, yearH1.innerHTML));
+            newDiv.addEventListener("click", () => dayPressed(todayDiv.innerHTML, monthH1.innerHTML, yearH1.innerHTML, totalDiv.innerHTML));
 
             if(getEpoch(currentMonth, index, currentYear) >= newestDate){
                
@@ -200,7 +202,7 @@ function load(){
             index++;
             totalDiv.className = 'totalDiv';
             dateDivTemp.textContent = index
-            newDiv.addEventListener("click", () => dayPressed(dateDivTemp.innerHTML, monthH1.innerHTML, yearH1.innerHTML));
+            newDiv.addEventListener("click", () => dayPressed(dateDivTemp.innerHTML, monthH1.innerHTML, yearH1.innerHTML, totalDiv.textContent));
             
             let epochnow = getEpoch(months.indexOf(monthH1.innerHTML), dateDivTemp.innerHTML, yearH1.innerHTML)
          
@@ -305,7 +307,7 @@ function cancelPressed(){
     backDrop.style.display='none';
 }
 
-function dayPressed(curretDay, currentMonth, currentYear){
+function dayPressed(curretDay, currentMonth, currentYear, currentBalance){
 
     
 
@@ -317,7 +319,7 @@ function dayPressed(curretDay, currentMonth, currentYear){
    historyDiv.innerHTML='';
    totalDiv.innerHTML='';
 
-   loadFinanceHistory(currentMonth, curretDay, currentYear)
+   loadFinanceHistory(currentMonth, curretDay, currentYear, currentBalance)
 
    
 
@@ -349,7 +351,12 @@ function addExpense(event){
     let amountValue = amountBox.value
     let descriptionValue = descriptionBox.value
     let incomeClass = incomeButton.className
-  
+
+    const lineDiv = document.createElement('div');
+    lineDiv.className = "lineBreakDiv"
+
+ 
+    console.log("start: " + bal)
 
     form.reportValidity();
 
@@ -372,19 +379,18 @@ function addExpense(event){
 
         historyDiv.appendChild(log);
 
-        runningTotal = calculateTotal();
+        runningTotal = calculateTotal() + bal;
 
         totalDiv.innerHTML = '';
         const newTotal = document.createElement('h1');
-        const lineDiv = document.createElement('div');
-        lineDiv.className = "lineBreakDiv"
+    
         newTotal.id = "total"
 
         if(runningTotal >= 0){
-            newTotal.textContent = "Total: + $" + runningTotal;
+            newTotal.textContent = "New Balance: +$" + runningTotal;
         }
         else{
-            newTotal.textContent = "Total: - $" + runningTotal.toString().slice(1);
+            newTotal.textContent = "New Balance: -$" + runningTotal.toString().slice(1);
         }
 
         totalDiv.appendChild(lineDiv);
@@ -400,28 +406,62 @@ function addExpense(event){
 
 }
 
-function loadFinanceHistory(currentMonth,  curretDay, currentYear){
+function loadFinanceHistory(currentMonth,  curretDay, currentYear, currentBalance){
 
     epochDate = new Date(Date.UTC(currentYear, months.indexOf(currentMonth), curretDay, 12)).getTime();
-
-
-    
-
     dateKey = currentMonth + " " + curretDay + ", " + currentYear
 
-    
+    let startingBlance = 0;
+    const lineDiv = document.createElement('div');
+    lineDiv.className = "lineBreakDiv"
 
+    const lineDiv2 = document.createElement('div');
+    lineDiv2.className = "lineBreakDiv"
+
+    if(currentBalance[0] === '-'){
+        startingBlance = parseFloat(currentBalance.slice(2)) *-1
+    }
+    else{
+        startingBlance = parseFloat(currentBalance.slice(2)) 
+    }
+
+
+    bal = startingBlance;
+
+    const newTotal = document.createElement('h1');
+    const balanceH1 = document.createElement('h3');
+ 
     fullDate = dateKey;
 
     if(logMap.has(dateKey)){
 
-     
-
+        
         logs = logMap.get(dateKey)
         allExpenseLogs = expenseMap.get(epochDate)
 
         currentExpenseVal = 0;
+
+
+
+        for( i = 0; i < logs.length; i++){
+
         
+           currentExpenseVal += allExpenseLogs[i];
+           
+    
+        }
+
+        if(startingBlance - currentExpenseVal < 0){
+            balanceH1.textContent = "Start Balance: -$" + Math.abs(startingBlance - currentExpenseVal);
+        }
+        else{
+            balanceH1.textContent = "Start Balance: +$" +  (startingBlance - currentExpenseVal);
+        }
+        
+      
+        historyDiv.appendChild(balanceH1)
+        historyDiv.appendChild(lineDiv)
+        currentExpenseVal = 0;
 
         for( i = 0; i < logs.length; i++){
 
@@ -438,22 +478,32 @@ function loadFinanceHistory(currentMonth,  curretDay, currentYear){
 
         }
 
-        const newTotal = document.createElement('h1');
-        const lineDiv = document.createElement('div');
-        lineDiv.className = "lineBreakDiv"
+        
+       
         newTotal.id = "total"
 
         if(currentExpenseVal >= 0){
-            newTotal.textContent = "+ $" + currentExpenseVal;
+            newTotal.textContent = "New Balance: " + currentBalance;
         }
         else{
-            newTotal.textContent = "- $" + currentExpenseVal.toString().slice(1);
+            newTotal.textContent = "New Balnce: " + currentBalance;
+        
         }
 
-        totalDiv.appendChild(lineDiv);
+        totalDiv.appendChild(lineDiv2);
         totalDiv.appendChild(newTotal);
 
+    }  
+    else{
+        balanceH1.textContent = "Start Balance: " +  currentBalance;
+        historyDiv.appendChild(balanceH1)
+        historyDiv.appendChild(lineDiv)
+        totalDiv.appendChild(lineDiv2); 
+        newTotal.id = "total"
+        newTotal.textContent = "New Balance: " + currentBalance
+        totalDiv.appendChild(newTotal);
     }
+        
 
 }
 
@@ -465,6 +515,7 @@ function savePressed(){
     let currentEntry;
     let sign;
 
+    
     logMap.set(fullDate, []);
     expenseMap.set(epochDate, [])
 
@@ -484,7 +535,7 @@ function savePressed(){
 
     
 
-         currentEntry = parseInt( numericArray[0], 10)
+         currentEntry = parseFloat( numericArray[0], 10)
 
          if(sign === "negative"){
 
@@ -550,7 +601,7 @@ function calculateTotal(){
 
       
 
-         currentEntry = parseInt( numericArray[0], 10)
+         currentEntry = parseFloat( numericArray[0], 10)
 
          if(sign === "negative"){
       
