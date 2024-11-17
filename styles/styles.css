@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     background-color: #f3f5f6;
+    width: 100%;
 }
 
 #headerDiv{
@@ -171,13 +172,13 @@
 
 .addedEventNegative{
     border-radius: 10px;
-    background-color: rgb(210, 183, 183);
+    background-color: rgb(209, 168, 168);
 }
 
 .addedEvent{
 
     border-radius: 10px;
-    background-color: rgb(210, 183, 183);
+    background-color: rgb(128, 208, 118);
 }
 
 
@@ -204,12 +205,15 @@
     
 }
 
-body{
+body, html{
     background-color: #f3f5f6;
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 0px;
 }
 
 #logo{
-    width: fit-content;
+    width: 100%;
 }
 
 .negativeDay{
@@ -258,7 +262,7 @@ body{
 
     background-color: #efedeb;
     width:1000px;
-    height: 1250px;
+    height: 90%;
     display: flex;
     flex-direction: column;
     border-radius: 25px;
@@ -542,7 +546,45 @@ body{
 /* --------------------------------*/
 
 
+#realHeader{
+    background-color: #efedeb;
+    width: 100%;
+    height: 100px;
+    border: 3px solid grey;
+    position: relative;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
 
+#signOutButton{
+
+    margin-right: 50px;
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    border: 3px solid grey;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    color: gray;
+    
+}
+
+#signOutButton:hover {
+
+
+    background-color: #b4b0ac;
+ 
+    
+}
+
+#titleDiv{
+
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
 
 
 
